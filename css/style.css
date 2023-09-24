@@ -28,6 +28,7 @@ a:hover {
   transition: all 0.5s ease-in-out;
 }
 
+
 .p-r {
   position: relative;
 }
@@ -393,9 +394,33 @@ a:hover {
 /*======================================
 //--//-->   NAVBAR
 ======================================*/
+/* 隱藏下拉菜單，並添加過渡效果 */
+.dropdown-menu {
+  display: none;
+  opacity: 0; /* 初始透明度為0 */
+  transition: opacity 1s ease-in-out; /* 添加過渡效果 */
+}
+
+/* 滑鼠懸停在父元素時顯示下拉菜單並增加透明度 */
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  opacity: 1; /* 將透明度設置為1，顯示下拉菜單 */
+}
+
+/* 離開下拉菜單後一段時間後再隱藏 */
+.nav-item.dropdown:hover .dropdown-menu,
+.dropdown-menu:hover {
+  display: block;
+  opacity: 1; /* 保持透明度為1 */
+}
+
+/* 離開下拉菜單後再過渡到隱藏狀態 */
+.nav-item.dropdown .dropdown-menu {
+  transition-delay: 1s; /* 添加延遲時間 */
+}
 
 .navbar-b {
-  transition: all .5s ease-in-out;
+  transition: all .75s ease-in-out;
   background-color: transparent;
   padding-top: 1.563rem;
   padding-bottom: 1.563rem;
