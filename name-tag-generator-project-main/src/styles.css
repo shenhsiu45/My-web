@@ -3,7 +3,6 @@
     text-align: center;
   }
   
-  /* Add Name Input */
   input {
     padding: 5px;
     font-size: 16px;
@@ -14,17 +13,16 @@
   }
   
   .name-tag {
-    background-color: rgb(233, 169, 110);
+    background-color: red;
     padding: 10px 0 20px;
     border-radius: 20px;
     width: 350px;
     margin: 20px 10px;
     display: inline-block;
     position: relative;
-    box-shadow: 1px 1px 6px 2px lightgrey;
   }
   .title {
-    color: rgb(255, 255, 255);
+    color: white;
     margin: 0;
     font-size: 40px;
   }
@@ -37,7 +35,7 @@
     margin: 10px 0;
     font-size: 60px;
     height: 90px;
-    font-family: 'Permanent Marker', Rowdies, Arial, Helvetica, sans-serif;
+    font-family: 'Permanent Marker', Arial, Helvetica, sans-serif;
   }
   .name-tag__delete {
     position: absolute;
