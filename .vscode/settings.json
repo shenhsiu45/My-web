@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/cc16a339-0faa-492c-b80a-f5449f957a46/resourceGroups/shenhsiuweb/providers/Microsoft.Web/sites/shenhsiu",
+    "appService.deploySubpath": "."
+}
