@@ -1,57 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
-
-
-    <body id="page-top">
-        <!--/ Nav Star /-->
-        <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
-          <div class="container">
-            <a class="navbar-brand js-scroll" href="#page-top">張慎修 的個人網站</a>
-            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-              aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-            <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
-              <ul class="navbar-nav">
-                
-                <li class="nav-item dropdown">
-                  <a class="nav-link js-scroll" href="#" id="navbarDropdown">
-                    Github
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="https://github.com/shenhsiu45/shenhsiu0405">112-1 網際網路概論</a>
-                    <a class="dropdown-item" href="https://github.com/shenhsiu45/My-web">My-Web</a>
-                    <a class="dropdown-item" href="https://github.com/shenhsiu45/Name-Tag-Generator">HW3 NameTagGenerator</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <!--/ Nav End /-->
-
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
+    <title>資料結構</title>
+    
+    <!-- Bootstrap CSS 檔案 -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Libraries CSS 檔案 -->
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <!-- 主要樣式表檔案 -->
+    <link href="css/style.css" rel="stylesheet">
+
     <style>
-        /* CSS样式可以在这里添加 */
+        /* CSS樣式可在此添加 */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
         nav {
-            background-color: #fdee19;
+            background-color: #60501e;
+            color: #fff;
             padding: 10px;
             text-align: center;
         }
@@ -64,94 +38,121 @@
             padding: 20px;
         }
         footer {
-            background-color: #fdee19;
+            background-color: #60501e;
             color: #fff;
-            padding: 1px;
+            padding: 10px;
             text-align: center;
-            position: fixed;
+            position: relative;
             bottom: 0;
             width: 100%;
+        }
+        h1 {
+            font-size: 2em; /* 將標題放大 */
+            text-align: center;
+        }
+        .weeks {
+            display: flex; /* 使用彈性布局 */
+            justify-content: space-around; /* 橫向排列並在周圍留有空間 */
+            list-style-type: none; /* 去掉列表的默認樣式 */
+            padding: 0;
+        }
+        .weeks li {
+            text-align: center; /* 文字置中 */
+            width: 100px; /* 每週的寬度 */
         }
     </style>
 </head>
 
-
-
-<body>
-
-<header>
-    <h1>資料結構</h1>
-</header>
-
-<nav>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Contact</a>
+<body id="page-top">
+    <h1>資料結構 (Data Structures)</h1>
+    <!-- 導航列開始 -->
+<nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
+    <div class="container">
+        <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
+            <nav>
+                <a href="#課程大綱">課程大綱</a>
+                <a href="#week1">第一週</a>
+                <a href="#week2">第二週</a>
+                <a href="#week3">第三週</a>
+                <a href="#week4">第四週</a>
+                <a href="#week5">第五週</a>
+                <a href="#week6">第六週</a>
+                <a href="#week7">第七週</a>
+            </nav>
+        </div>
+    </div>
 </nav>
+<!-- 導航列結束 -->
 
-<main>
-    <h2>課程大綱</h2>
-    <p>The course emphasizes data structures and the development and analysis of their associated 
-        algorithms. Specific data structures include trees, graphs, stacks, queues, and hash tables.</p>
+    <!-- 主要內容 -->
+    <main>
+        <p><a href="https://ws5618-my.sharepoint.com/:f:/g/personal/samuel_ws5618_onmicrosoft_com/Eq5A4h2TcP1Bv1tX8sglgAgBN4HRwMi9eUnHxErd_7zJCA">上課用ppt</a></p>
+
+        <h2>課程大綱</h2>
+        <p>本課程重點介紹資料結構，以及與之相關的算法的開發和分析。具體的資料結構包括樹、圖、堆疊、佇列和雜湊表。</p>
+
+        <p>授課老師: 林政宏 (brucelin@ntnu.edu.tw)</p>
+
+        <h2>課程內容</h2>
+        <ul>
+            <li>演算法分析Algorithm Complexity</li>
+            <li>陣列(array)</li>
+            <li>堆疊與佇列(stack and queue)</li>
+            <li>鏈結串列(Linked List)</li>
+            <li>遞迴(Recursion)</li>
+            <li>樹狀結構(Tree)</li>
+            <li>二元搜尋樹(Binary search tree)</li>
+            <li>堆積(Heap)</li>
+            <li>高度平衡二元搜尋數(Height balanced binary search tree)</li>
+            <li>圖形結構(graph)</li>
+            <li>排序(Sorting)</li>
+            <li>搜尋(Search)</li>
+        </ul>
+
+        <h2>評量方法</h2>
+        <ul>
+            <li>作業+小考 40%</li>
+            <li>期中考 30% (上機考)</li>
+            <li>期末考 30% (學科+術科)</li>
+        </ul>
         
-    <p>授課老師: 林政宏(brucelin@ntnu.edu.tw)</p>
-    
-    <h2>課程內容</h2>
-    <p>1. 演算法分析Algorithm Complexity</p>
-    <p>2. 陣列(array)</p>
-    <p>3. 堆疊與佇列(stack and queue) </p> 
-    <p>4. 鏈結串列(Linked List)</p>
-    <p>5. 遞迴(Recursion)</p>
-    <p>6. 樹狀結構(Tree)</p>
-    <p>7. 二元搜尋樹(Binary search tree)</p>
-    <p>8. 堆積(Heap)</p>
-    <p>9. 高度平衡二元搜尋數(Height balanced binary search tree)</p>
-    <p>10. 圖形結構(graph)</p>
-    <p>11. 排序(Sorting)</p>
-    <p>12. 搜尋(Search)</p>
+        <p>高中生解題系統: <a href="http://zerojudge.tw/">http://zerojudge.tw/</a></p>
+        <p>Leetcode: <a href="https://leetcode.com/">https://leetcode.com/</a></p>
+
+        <hr style="border-color:rgb(129, 106, 60);">
+        <h2 id="week1">第一週</h2>
+        <!-- 第一週內容 -->
+        <p><a href="DataStructures/w1/1.html">指標(Pointers)頁面</a></p>
         
-    <h2>評量方法</h2>
-    <p>1. 作業+小考 40%</p>
-    <p>2. 期中考 30% (上機考)</p>
-    <p>3. 期末考 30% (學科+術科)</p>
-        
-    <p>助教:</p>
-    <p>陳柏序(asddsa765432@gmail.com)</p>
-    <p>曾翊翔(tsengyihsiang0331@gmail.com)</p>
-        
-    <p>參考書目</p>
-    <p>1. 資料結構-使用C語言，蔡明志編著，全華圖書。</p>
-    <p>編輯環境Dev C++(http://orwelldevcpp.blogspot.tw/)</p>
-    
-    <p>高中生解題系統</p>
-    <p>http://zerojudge.tw/</p>
-        
-    <p>Leetcode</p>
-    <p>https://leetcode.com/</p>
+        <hr style="border-color:rgb(129, 106, 60);">
+        <h2 id="week2">第二週</h2>
+        <!-- 第二週內容 -->
+        <p>這裡放第二週的內容</p>
 
-    <p>請所有修課同學以你的「學號」註冊「帳號」與「姓名」，</p>
-    <p>並選擇「國立台灣師範大學」。</p>
-    <p>每次繳交作業需附上程式碼檔案，其檔案命名方式為「學號_題號.c」</p>
-    <p>如：40675001H_a001.c 代表為a001題的解答</p>
-    <p>作業一律以moodle繳交，遲交一天內不扣分，遲交一到三天打七折，遲交三到七天五折，超過七天零分計算。</p>
+        <!-- 其他週同理... -->
+    </main>
+    <!-- 主要內容結束 -->
 
-    <a href="#">第一週</a>
-    <h>第二週</h>
-    <h>第三週</h>
-    <h>第四週</h>
-    <h>第五週</h>
-    <h>第六週</h>
-    <h>第七週</h>
-    <p></p><p></p>
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2024 My Website. All rights reserved.</p>
+    </footer>
+    <!-- 頁尾結束 -->
 
-
-</main>
-
-
-<footer>
-    <p>&copy; 2024 My Website. All rights reserved.</p>
-</footer>
+    <!-- Bootstrap JS 檔案 -->
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Libraries JS 檔案 -->
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/jquery-migrate.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/superfish/hoverIntent.js"></script>
+    <script src="lib/superfish/superfish.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <!-- 主要 JS 檔案 -->
+    <script src="js/main.js"></script>
 
 </body>
 </html>
