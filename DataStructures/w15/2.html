@@ -1,59 +1,101 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>指標用於動態記憶體配置的範例</title>
+    <title>Dijkstra單源最短路徑演算法</title>
 </head>
-
 <body>
-
-    <h1>指標用於動態記憶體配置的範例</h1>
-    <p>以下是一個使用指標進行動態記憶體配置的C語言範例。在這個範例中，我們將演示如何動態地創建一個整數陣列，並在程式執行時分配和釋放記憶體。</p>
-
+<h1>Dijkstra's single source shortest path algorithm</h1>
+<h1>Dijkstra單源最短路徑演算法</h1>
     <pre><code>
+#include &lt;limits.h&gt;
 #include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-int main() {
-    int n; // 陣列大小
-    printf("請輸入陣列大小：");
-    scanf("%d", &n);
-
-    // 使用 malloc 函式分配記憶體
-    int *arr = (int *)malloc(n * sizeof(int));
-
-    if (arr == NULL) {
-        printf("記憶體分配失敗\n");
-        return 1;
+#include &lt;stdbool.h&gt;
+ 
+// 圖中的頂點數量
+#define V 7
+ 
+// 從尚未包含在最短路徑樹中的頂點集合中找到具有最小距離值的頂點
+int minDistance(int dist[], bool sptSet[])
+{
+    // 初始化最小值
+    int min = INT_MAX, min_index;
+    int v;
+    for (v = 0; v &lt; V; v++){
+        if (sptSet[v] == false && dist[v] &lt;= min){
+            min = dist[v];
+            min_index = v;
+        }
     }
 
-    // 初始化陣列
-    for (int i = 0; i &lt; n; i++) {
-        arr[i] = i * 2;
+    return min_index;
+}
+ 
+// 用於列印構造的距離陣列的實用函式
+void printSolution(int dist[])
+{
+    int i;
+    printf("頂點 \t\t 從源頭的距離\n");
+    for (i = 0; i &lt; V; i++)
+        printf("%d \t\t %d\n", i, dist[i]);
+}
+ 
+// 函式，實現使用鄰接矩陣表示的圖的Dijkstra單源最短路徑演算法
+void dijkstra(int graph[V][V], int src)
+{
+    int dist[V]; // 輸出陣列。 dist[i]將保存從源頭到i的最短距離
+ 
+    bool sptSet[V]; // 如果頂點i包含在最短路徑樹中或從源頭到i的最短距離已確定，則sptSet[i]為true
+ 
+    // 將所有距離初始化為無限大，stpSet[]初始化為false
+    int i;
+    for (i = 0; i &lt; V; i++){
+        dist[i] = INT_MAX;
+        sptSet[i] = false;
+    } 
+        
+    // 源頭頂點到自身的距離始終為0
+    dist[src] = 0;
+ 
+    // 找到所有頂點的最短路徑
+    int count;
+    for (count = 0; count &lt; V - 1; count++) {
+        // 從尚未處理的頂點集合中選擇最小距離的頂點。在第一次迭代中，u始終等於源頭。
+        int u = minDistance(dist, sptSet);
+ 
+        // 將選定的頂點標記為已處理
+        sptSet[u] = true;
+ 
+        // 更新選定頂點的相鄰頂點的距離值
+        int v;
+        for (v = 0; v &lt; V; v++)
+            // 只有在v不在sptSet中，且從u到v有一條邊，且從源頭通過u到v的路徑的總權重
+            // 小於dist[v]的當前值時，才更新dist[v]
+            if (!sptSet[v] &amp;&amp; graph[u][v] &amp;&amp; dist[u] + graph[u][v] &lt; dist[v])
+                dist[v] = dist[u] + graph[u][v];
     }
+ 
+    // 列印構造的距離陣列
+    printSolution(dist);
+}
+ 
 
-    // 輸出陣列元素
-    printf("陣列元素：");
-    for (int i = 0; i &lt; n; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
+int main()
+{
 
-    // 釋放動態分配的記憶體
-    free(arr);
-
+    int graph[V][V] = { { 0, 4, 6, 6, 0, 0, 0},
+                        { 0, 0, 1, 0, 7, 0, 0},
+                        { 0, 0, 0, 0, 6, 4, 0},
+                        { 0, 0, 2, 0, 0, 5, 0},
+                        { 0, 0, 0, 0, 0, 0, 6},
+                        { 0, 0, 0, 0, 1, 0, 8},
+                        { 0, 0, 0, 0, 0, 0, 0}};
+ 
+    dijkstra(graph, 0);
+ 
     return 0;
 }
     </code></pre>
-
-    <p>在這個範例中，我們使用了 malloc 函式（位於 stdlib.h 標頭檔中）來動態地分配記憶體，並為整數陣列分配了足夠的記憶體空間。如果記憶體分配成功，我們就可以像使用普通陣列一樣操作這個動態分配的陣列。</p>
-    
-    <p>完成操作後，我們使用 free 函式來釋放先前分配的記憶體，以防止記憶體洩漏。這樣，我們可以確保在不再需要記憶體時將其歸還給系統。</p>
-
-    <p>這只是動態記憶體配置的一個簡單範例，實際上，動態分配的記憶體可以用於更複雜的資料結構，例如鏈結串列、樹和字串等。在使用指標進行動態記憶體配置時，確保在不需要使用時及時釋放記憶體，以避免記憶體洩漏和浪費。</p>
-
 </body>
-
 </html>
