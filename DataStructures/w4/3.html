@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>function重要觀念: call by reference for 二維array</title>
+</head>
+<body>
+<pre>
+function重要觀念: call by reference for 二維array
+
+將矩陣乘法的部分改寫成function
+
+int a[2][3] = {1,2,3,4,5,6};
+
+int b[3][2] = {1,2,3,4,5,6};
+
+int c[2][2] = {0};
+
+請計算c = a * b;
+
+Example
+#include &lt;stdio.h&gt;
+
+int main(){
+
+     int a[2][3] = {1,2,3,4,5,6};
+
+     int b[3][2] = {1,2,3,4,5,6};
+
+     int c[2][2] = {0};
+
+     int i, j, k;
+
+     for(i=0; i&lt;2; i++){
+
+          for(j=0; j&lt;2; j++){
+
+               for(k=0; k&lt;3; k++){
+
+                    c[i][j]+=a[i][k]*b[k][j];
+
+               }
+
+          }
+
+     }
+
+     for(i=0; i&lt;2; i++){
+
+          for(j=0; j&lt;2;j++){
+
+               printf("%5d", c[i][j]);
+
+          }
+
+          printf("\n");
+
+     }
+
+     return 0;
+
+}
+
+Example:
+#include &lt;stdio.h&gt;
+
+void mulMatrix(int a[][3], int b[][2], int c[][2]);
+void printArray(int s[][2]);
+
+int main(){
+
+     int a[2][3] = {1,2,3,4,5,6};
+     int b[3][2] = {1,2,3,4,5,6};
+     int c[2][2] = {0};
+
+     mulMatrix(a, b, c);
+     printArray(c);
+     return 0;
+}
+
+void mulMatrix(int a[][3], int b[][2], int c[][2]){
+     int i, j, k;
+
+     for(i=0; i&lt;2; i++){
+          for(j=0; j&lt;2; j++){
+               for(k=0; k&lt;3; k++){
+                    c[i][j]+=a[i][k]*b[k][j];
+               }
+          }
+     }
+}
+
+void printArray(int s[][2]){
+     int i, j;
+
+     for(i=0;i&lt;2;i++){
+          for(j=0; j&lt;2; j++){
+               printf("%d\t",s[i][j]);
+          }
+          printf("\n");
+     }
+}
+</pre>
+</body>
+</html>

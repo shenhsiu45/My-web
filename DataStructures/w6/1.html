@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>a565. 2.p&q的邂逅 -- 101學年度台北市資訊學科能力競賽</title>
+</head>
+<body>
+<p>程式碼：</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+#define MAX 10000
+
+char stack[MAX];
+
+int top;
+
+void push(char n){
+
+	if(top==MAX-1){
+
+		printf("The stack is full!\n");
+
+	}else{
+
+		top++;
+
+		stack[top] = n;
+
+	}
+
+} 
+
+char pop(){
+
+	char data;
+
+	if(top==-1){
+
+		//printf("The stack is empty!\n");
+
+		return -1;
+
+	}
+
+	else{
+
+		data = stack[top];
+
+		top--;
+
+		return data;
+
+	}
+
+}
+
+int main(){
+
+	int n;
+
+	char s[10000];
+
+	int i, j;
+
+	int count;
+
+	char popValue;
+
+	scanf("%d", &n);
+
+	for(i=0; i<n; i++){
+
+		scanf("%s", s);
+
+		j=0;
+
+		count = 0;
+
+		top = -1;
+
+		while(s[j]!='\0'){
+
+			if(s[j]=='p'){
+
+				push('p');
+
+				j++;
+
+			}
+
+			else if (s[j]=='q'){
+
+					popValue = pop();
+
+					if(popValue=='p'){
+
+						count++;
+
+						j++;	
+
+					}
+
+					else{
+
+						j++;
+
+					}		
+
+			}
+
+			else{
+
+				j++;
+
+			}
+
+		}
+
+		printf("%d\n", count);	
+
+	}
+
+	return 0;
+
+}
+</code></pre>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queue Operations</title>
+</head>
+<body>
+<h1>Queue Operations</h1>
+<p>程式碼：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+void enqueue(struct node **start, struct node **tail, int num) {
+    struct node *x = (struct node*)malloc(sizeof(struct node));
+    x->data = num;
+    x->next = NULL;
+    if (*start == NULL) {
+        *start = x;
+        *tail = x;
+    } else {
+        (*tail)->next = x;
+        *tail = x;
+    }
+}
+
+int dequeue(struct node **start) {
+    struct node *temp;
+    int num;
+    if (*start == NULL) {
+        printf("The queue is empty!\n");
+        return -1;
+    } else {
+        num = (*start)->data;
+        temp = *start;
+        *start = (*start)->next;
+        free(temp);
+        return num;
+    }
+}
+
+void printQueue(struct node *start) {
+    while (start != NULL) {
+        printf("%d-->", start->data);
+        start = start->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct node *head = NULL, *tail = NULL;
+    int num;
+    int sel;
+
+    printf("1. Enqueue!\n");
+    printf("2. Dequeue!\n");
+    printf("3. Exit\n");
+    scanf("%d", &sel);
+
+    while (sel != 3) {
+        if (sel == 1) {
+            printf("Enter number to enqueue:");
+            scanf("%d", &num);
+            enqueue(&head, &tail, num);
+            printQueue(head);
+        } else {
+            printf("%d is dequeued!\n", dequeue(&head));
+            printQueue(head);
+        }
+
+        printf("1. Enqueue!\n");
+        printf("2. Dequeue!\n");
+        printf("3. Exit\n");
+        scanf("%d", &sel);
+    }
+
+    return 0;
+}
+</code></pre>
+</body>
+</html>

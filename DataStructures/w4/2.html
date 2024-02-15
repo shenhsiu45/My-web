@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>二維陣列指標操作版本</title>
+</head>
+<body>
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(){
+    int m, n, i, j;
+    int **arr;
+
+    scanf("%d%d", &m, &n);
+    arr = (int**)malloc(m*sizeof(int*));
+    for(i=0; i<m; i++){
+        //arr[i] = (int*)malloc(n*sizeof(int));
+        *(arr+i) = (int*)malloc(n*sizeof(int));
+    }
+
+    for(i=0; i<m; i++){
+        for(j=0; j<n; j++){
+            //arr[i][j] = i*n+j;
+            *(*(arr+i)+j) = i*n+j;
+        }
+    }
+
+    for(i=0; i<m; i++){
+        for(j=0; j<n; j++){
+            //printf("%d ", arr[i][j]);
+            printf("%d ", *(*(arr+i)+j));
+        }
+        printf("\n");
+    }
+
+    return 0;
+} 
+
+矩陣乘法範例
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(){
+    int m1, n1, m2, n2, i, j, k;
+    int **a, **b, **c;
+
+    scanf("%d%d", &m1, &n1);
+
+    a = (int**)malloc(m1*sizeof(int*));
+    for(i=0; i<m1; i++){
+        a[i] = (int *)malloc(n1*sizeof(int));
+    }
+
+    for(i=0; i<m1; i++){
+        for(j=0; j<n1; j++){
+            scanf("%d", &a[i][j]);//row-major
+        }
+    }
+
+    for(i=0; i<m1; i++){
+        for(j=0; j<n1; j++){
+            printf("%d ", a[i][j]);
+        }
+        printf("\n");
+    }
+
+    scanf("%d%d", &m2, &n2);
+
+    b = (int**)malloc(m2*sizeof(int*));
+    for(i=0; i<m2; i++){
+        b[i] = (int *)malloc(n2*sizeof(int));
+    }
+
+    for(i=0; i<m2; i++){
+        for(j=0; j<n2; j++){
+            scanf("%d", &b[i][j]);//row-major
+        }
+    }
+
+    for(i=0; i<m2; i++){
+        for(j=0; j<n2; j++){
+            printf("%d ", b[i][j]);
+        }
+        printf("\n");
+    }
+
+    c = (int**)malloc(m1*sizeof(int*));
+    for(i=0; i<m1; i++){
+        c[i] = (int *)malloc(n2*sizeof(int));
+    }
+
+    for(i=0; i<m1; i++){
+        for(j=0; j<n2; j++){
+            c[i][j] = 0;
+            for(k=0; k<n1; k++){
+                c[i][j]+=a[i][k]*b[k][j];
+            }
+        }
+    }
+
+    for(i=0; i<m1; i++){
+        for(j=0; j<n2; j++){
+            printf("%d ", c[i][j]);
+        }
+        printf("\n");
+    }
+
+
+
+    for(i=0; i<m1; i++){
+        free(a[i]);
+    }
+    free(a);
+
+    for(i=0; i<m2; i++){
+        free(b[i]);
+    }
+    free(b);
+
+    for(i=0; i<m1; i++){
+        free(c[i]);
+    }
+    free(c);
+
+    return 0;
+}
+
+函式版本
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+void printArr(int **s, int row, int col);
+int **allocMatrix(int row, int col);
+void setMatrix(int **s, int row, int col);
+void mulMatrix(int **a, int **b, int **c, int m1, int n1, int m2, int n2);
+void freeMatrix(int **s, int row);
+
+int main(){
+    int m1, n1, m2, n2;
+    int **a, **b, **c;
+
+    scanf("%d%d", &m1, &n1);
+    a = allocMatrix(m1, n1);
+    setMatrix(a, m1, n1);
+    printArr(a, m1, n1);
+
+    scanf("%d%d", &m2, &n2);
+    b = allocMatrix(m2, n2);
+    setMatrix(b, m2, n2);
+    printArr(b, m2, n2);
+
+    c = allocMatrix(m1, n2);
+
+    mulMatrix(a, b, c, m1, n1, m2, n2);
+
+    printArr(c, m1, n2);
+
+    freeMatrix(a, m1);
+    freeMatrix(b, m2);
+    freeMatrix(c, m1);
+
+    return 0;
+}
+
+void printArr(int **s, int row, int col){
+    int i, j;

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Tree Node Delete node</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Binary Search Tree Node Delete</h1>
+        <p>以下是您提供的 C 語言程式碼:</p>
+        <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node{
+    struct node *left;
+    int data;
+    struct node *right;
+};
+
+void insertNode(struct node **root, int n){
+    if(*root == NULL){
+        *root = (struct node *)malloc(sizeof(struct node));
+        (*root)-&gt;data = n;
+        (*root)-&gt;left = NULL;
+        (*root)-&gt;right = NULL;
+    }else{
+        if(n &gt; (*root)-&gt;data){
+            insertNode(&((*root)-&gt;right), n);
+        }else if(n &lt; (*root)-&gt;data){
+            insertNode(&((*root)-&gt;left), n);
+        }else{
+            printf("dup");
+        }
+    }
+
+}
+
+void inorder(struct node *root){
+  if (root!=NULL){
+      inorder(root-&gt;left);
+      printf("%d ", root-&gt;data);
+      inorder(root-&gt;right);
+  }
+}
+
+void preOrder(struct node *root){ 
+   if (root!= NULL ) { 
+      printf( "%d ", root-&gt;data );
+      preOrder( root-&gt;left );
+      preOrder( root-&gt;right );
+   }
+}
+
+void postOrder(struct node *root){ 
+   if (root!= NULL ) { 
+      postOrder( root-&gt;left );
+      postOrder( root-&gt;right );
+      printf( "%d ", root-&gt;data );
+   }
+}
+
+struct node * searchNode(struct node *p, int key){
+    if(p==NULL){
+        return NULL;
+    }
+    else if(p-&gt;data == key){
+        return p;
+    }else if(key &gt; p-&gt;data){
+        return(searchNode(p-&gt;right, key));
+    }else{
+        return(searchNode(p-&gt;left, key));
+    }
+}
+struct node* minValueNode(struct node* node){
+    struct node* current = node;
+ 
+    /* loop down to find the leftmost leaf */
+    while (current-&gt;left != NULL)
+        current = current-&gt;left;
+ 
+    return current;
+}
+
+struct node* deleteNode(struct node* root, int key){
+    // base case
+    if (root == NULL)
+        return root;
+ 
+    if (key &lt; root-&gt;data)
+        root-&gt;left = deleteNode(root-&gt;left, key);
+    else if (key &gt; root-&gt;data)
+        root-&gt;right = deleteNode(root-&gt;right, key);
+    else {
+        // node with only one child or no child
+        if (root-&gt;left == NULL) {
+            struct node* temp = root-&gt;right;
+            free(root);
+            return temp;
+        }
+        else if (root-&gt;right == NULL) {
+            struct node* temp = root-&gt;left;
+            free(root);
+            return temp;
+        }
+        else{
+            // node with two children:
+            // Get the inorder successor
+            // (smallest in the right subtree)
+            struct node* temp = minValueNode(root-&gt;right);
+            // Copy the inorder
+            // successor's content to this node
+            root-&gt;data = temp-&gt;data;
+ 
+            // Delete the inorder successor
+            root-&gt;right = deleteNode(root-&gt;right, temp-&gt;data);
+ 
+        }
+        return root;
+    }
+    
+}
+int main(){
+    struct node *tree = NULL;
+    int n, key;
+    struct node *p;
+    
+    printf("Enter elements to insert into the tree (EOF to end):\n");
+    while(scanf("%d", &n)!=EOF){
+        insertNode(&tree, n);
+    }
+    printf( "\n\nThe inOrder traversal is:\n" );
+    inorder(tree);
+    
+    printf( "\n\nThe preOrder traversal is:\n" );
+    preOrder(tree);
+    
+    printf( "\n\nThe postOrder traversal is:\n" );
+    postOrder(tree);
+        
+    printf("\n\nEnter key to delete:");
+    while(scanf("%d", &key)!=EOF){
+        tree = deleteNode(tree, key);
+        if(p==NULL){
+            printf("%d cannot find in this tree!\n", key);
+        }else{
+            printf( "\n\nThe inOrder traversal is:\n" );
+            inorder(tree);
+    
+            printf( "\n\nThe preOrder traversal is:\n" );
+            preOrder(tree);
+    
+            printf( "\n\nThe postOrder traversal is:\n" );
+            postOrder(tree);
+        }
+        printf("\n\nEnter key to delete:");
+    }
+        
+    return 0;
+}</code></pre>
+        <p>請在合適的編譯環境中執行該程式。</p>
+    </div>
+</body>
+</html>

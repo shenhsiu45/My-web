@@ -1,36 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>指標用於陣列操作的範例</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function重要觀念: Call by reference for 一維array</title>
 </head>
 <body>
-<pre><code>#include &lt;stdio.h&gt;
+    <h2>Function重要觀念: Call by reference for 一維array</h2>
+    <p>This example illustrates the concept of call by reference for a one-dimensional array in C.</p>
+    <h3>First Implementation:</h3>
+    <pre>
+#include &lt;stdio.h&gt;
 
-int main() {
-    int arr[] = {10, 20, 30, 40, 50};
-    int size = sizeof(arr) / sizeof(arr[0]);
-    
-    // 使用指標遍歷陣列並輸出元素
-    printf("陣列元素：");
-    for (int i = 0; i &lt; size; i++) {
-        printf("%d ", *(arr + i));
-    }
-    printf("\n");
-    
-    // 使用指標修改陣列元素
-    int *ptr = arr; // 將指標指向陣列的第一個元素
-    *(ptr + 2) = 75; // 修改第三個元素的值
-    
-    // 再次輸出修改後的陣列元素
-    printf("修改後的陣列元素：");
-    for (int i = 0; i &lt; size; i++) {
-        printf("%d ", *(arr + i));
-    }
-    printf("\n");
-    
+#define N 10
+
+void printArray(int[], int);
+void bubbleSort(int[], int);
+
+int main(){
+    int s[N] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+    printArray(s, N);
+    bubbleSort(s, N);
+    printArray(s, N);
     return 0;
-}</code></pre>
+}
+
+void printArray(int b[], int size){
+    int i;
+    for(i=0; i<size; i++){
+        printf("%d ", b[i]);
+    }
+    printf("\n");
+}
+
+void bubbleSort(int a[], int size){
+    int i, j, temp;
+    for(i=0; i<size-1; i++){
+        for(j=0; j<size-1-i; j++){
+            if(a[j]>a[j+1]){
+                temp = a[j];
+                a[j] = a[j+1];
+                a[j+1] = temp;
+            }
+        }
+    }
+}
+    </pre>
+    <h3>Second Implementation:</h3>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+void printArray(int *arr, int size){
+    int i;
+    for(i=0; i<size; i++){
+        printf("%d ", *(arr+i));
+    }
+    printf("\n");
+}
+
+void bubbleSort(int *arr, int size){
+    int i, j, temp;
+    for(i=0; i<size-1; i++){
+        for(j=0; j<size-1; j++){
+            if(*(arr+j)>*(arr+j+1)){
+                temp = *(arr+j);
+                *(arr+j) = *(arr+j+1);
+                *(arr+j+1) = temp;
+            }
+        }
+    }
+}
+
+int main(){
+    int n;
+    int *s;
+    int i;
+    scanf("%d", &n);
+    s = (int *)malloc(n*sizeof(int));
+    for(i=0; i<n; i++){
+        scanf("%d", &s[i]);
+    }
+    printArray(s, n);
+    bubbleSort(s, n);
+    printArray(s, n);
+    return 0;
+}
+    </pre>
 </body>
 </html>

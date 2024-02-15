@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>指標的部分觀念釐清</title>
+</head>
+<body>
+<pre>
+#include &lt;stdio.h&gt;
+
+int main(){
+
+    char s[10]="acef";
+
+    char *p = s;
+
+    printf("%c\n", *p++); // 印出 'a'，p++ --> 指向 'c'
+
+    printf("%c\n", *p);   // 印出 'c'
+
+    printf("%c\n", (*p)++); // 印出 'c'，改變 *p 中的 'c' 成 'd'
+
+    printf("%c\n", *p);   // 印出 'd'
+
+    printf("%s\n", s);    // 印出 adef
+
+    printf("%c\n", *(p++)); // 先執行 *p 並印出 'd'，然後執行 p++，指向 'e'
+
+    printf("%c\n", *p);   // 印出 'e'
+
+    printf("%c\n", *(++p)); // 先執行 ++p 指向 'f'，然後印出 'f'
+
+    printf("%c\n", *p);   // 印出 'f'
+
+    return 0;
+
+}
+</pre>
+</body>
+</html>

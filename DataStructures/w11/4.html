@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Tail Node of Circular List</title>
+</head>
+<body>
+<h1>Delete Tail Node of Circular List</h1>
+<p>Below is the code to delete the tail node of a circular list:</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+struct node* addCircularNode(struct node* start, int num) {
+    struct node *x = (struct node*)malloc(sizeof(struct node));
+    struct node *tail;
+    if (start == NULL) {
+        x->data = num;
+        x->next = x;
+        start = x;
+        return start;
+    } else {
+        tail = start;
+        while (tail->next != start) {
+            tail = tail->next;
+        }
+        x->data = num;
+        x->next = start;
+        start = x;
+        tail->next = x;
+        return start;
+    }
+}
+
+void printCircularNode(struct node* start) {
+    struct node *p = start;
+    if (start == NULL) {
+        printf("The linked list is empty!\n");
+        return;
+    }
+    while (p->next != start) {
+        printf("%d-->", p->data);
+        p = p->next;
+    }
+    printf("%d-->head\n", p->data);
+}
+
+struct node* delCircularNodeTail(struct node* start) {
+    struct node *tail, *prev;
+    if (start == NULL) {
+        printf("The linked list is empty!\n");
+        return start;
+    } else if (start->next == start) {
+        free(start);
+        return NULL;
+    } else {
+        prev = NULL;
+        tail = start;
+        while (tail->next != start) {
+            prev = tail;
+            tail = tail->next;
+        }
+        free(tail);
+        prev->next = start;
+        return start;
+    }
+}
+
+int circular_len(struct node *start) {
+    int count = 0;
+    struct node *p = start;
+    while (p != NULL && p->next != start) {
+        count++;
+        p = p->next;
+    }
+    return ++count;
+}
+
+int main() {
+    struct node *head = NULL;
+    int n;
+
+    printf("Enter elements for the circular list (enter any non-numeric value to end):\n");
+    while (scanf("%d", &n) != EOF) {
+        head = addCircularNode(head, n);
+    }
+    printCircularNode(head);
+    printf("The length is %d\n", circular_len(head));
+    while (head != NULL) {
+        head = delCircularNodeTail(head);
+        printCircularNode(head);
+    }
+
+    return 0;
+}
+</code></pre>
+</body>
+</html>

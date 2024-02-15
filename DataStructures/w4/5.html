@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>矩陣乘法(靜態二維陣列)</title>
+</head>
+<body>
+<pre>
+矩陣乘法(靜態二維陣列)
+
+#include &lt;stdio.h&gt;
+
+int main(){
+	int a[2][3] = {1,2,3,4,5,6};
+	int b[3][2] = {1,2,3,4,5,6};
+	int c[2][2];
+	int i, j, k;
+	
+	for(i=0; i<2; i++){
+		for(j=0; j<2; j++){
+			c[i][j] = 0;
+			for(k=0; k< 3; k++){
+				//c[i][j] = c[i][j] + a[i][k] * b[k][j];
+				c[i][j] += a[i][k] * b[k][j];	
+			}
+		}
+	}
+	
+	
+	for(i=0; i<2; i++){
+		for(j=0; j<2; j++){
+			printf("%d ", c[i][j]);
+		}
+		printf("\n");
+	}
+	
+	return 0;
+}
+</pre>
+</body>
+</html>

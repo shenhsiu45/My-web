@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insert a Node in a Linked List</title>
+</head>
+<body>
+<p>Insert a Node in a Linked List 程式碼：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next; 
+};
+
+struct node* addnode3(struct node* start, int num) {
+    struct node *prev, *current;
+    struct node *ptr = (struct node*)malloc(sizeof(struct node));
+    ptr -&gt;data = num;
+    ptr -&gt;next = NULL;
+    if (start == NULL) {
+        start = ptr;
+    } else {
+        prev = NULL;
+        current = start;
+        while (current != NULL &amp;&amp; current-&gt;data &gt; ptr-&gt;data) {
+            prev = current;
+            current = current-&gt;next;
+        }
+        if (prev == NULL) { //insert in the beginning of the list
+            ptr-&gt;next = start;
+            start = ptr;
+        } else {
+            ptr-&gt;next = current;
+            prev-&gt;next = ptr;
+        }
+    }
+    return start;
+}
+
+void printNode(struct node* start) {
+    while (start != NULL) {
+        printf("%d--&gt;", start-&gt;data);
+        start = start-&gt;next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct node *head = NULL; 
+    int n;
+    
+    while (scanf("%d", &amp;n) != EOF) {
+        head = addnode3(head, n);
+    }
+    printNode(head);
+    
+    return 0;
+}
+</code></pre>
+</body>
+</html>

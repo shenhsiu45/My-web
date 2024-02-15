@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>利用malloc動態配置2維陣列</title>
+</head>
+<body>
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(){
+    int m, n, i, j;
+    int **arr;
+
+    scanf("%d%d", &m, &n);
+    arr = (int**)malloc(m*sizeof(int*));
+    for(i=0; i<m; i++){
+        arr[i] = (int*)malloc(n*sizeof(int));
+    }
+
+    for(i=0; i<m; i++){
+        for(j=0; j<n; j++){
+            arr[i][j] = i*n+j;
+        }
+    }
+
+    for(i=0; i<m; i++){
+        for(j=0; j<n; j++){
+            printf("%d ", arr[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+</pre>
+</body>
+</html>

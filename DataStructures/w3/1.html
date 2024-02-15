@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Sort 範例程式</title>
+</head>
+<body>
+    <h2>Bubble Sort 範例程式</h2>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#define N 10
+void bubbleSort(int [], int);
+void swap(int*, int*);
+void printArray(int [], int);
+
+int main(){
+    int a[N] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+    
+    printArray(a, N);
+    bubbleSort(a, N);
+    printArray(a, N);
+        
+    return 0;    
+}
+
+void bubbleSort(int s[], int size){
+    int pass, j;
+    for(pass = 0; pass&lt;size-1; pass++){
+        for(j=0; j&lt;size-1-pass; j++){
+            if(s[j]&gt;s[j+1]){
+                swap(&amp;s[j], &amp;s[j+1]);
+            }
+        }
+    }
+}
+void swap(int *a, int *b){
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void printArray(int s[], int size){
+    int i;
+    for(i=0; i&lt;size; i++){
+        printf("%d ", s[i]);
+    }
+    printf("\n");
+}
+    </pre>
+</body>
+</html>

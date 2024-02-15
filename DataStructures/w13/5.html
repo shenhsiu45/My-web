@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BFS</h1>
+        <p>以下是您提供的 C 語言程式碼:</p>
+        <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;conio.h&gt;
+
+#define MAX_V 100  /*最大節點數*/
+#define TRUE 1
+#define FALSE 0
+
+struct node {
+    int vertex;
+    struct node *link;
+};
+typedef struct node Node;
+
+struct node *adjlist[MAX_V];  /*宣�'�相鄰串�-*/
+int visited[MAX_V];  /*�錄頂點��否已拜訪*/
+int total_vertex;
+
+void build_adjlist();
+void show_adjlist();
+void Bfs(int);
+
+int main()
+{
+    build_adjlist(); /*以相鄰串�-表示圖形*/
+    show_adjlist();  /*顯示串�-之資料*/
+    printf("\n------Breadth First Search------\n");
+    Bfs(0);         /*圖形之橫�'優先搜尋，以頂點0為啟始頂點*/
+    system("PAUSE");
+    return 0;
+}
+struct node *addnode(struct node *root, int vj){
+    struct node *current = root;
+    struct node *p = (struct node*)malloc(sizeof(struct node));
+    p->vertex = vj;
+    p->link = NULL;
+    if(root == NULL){
+        return p;
+    }else{
+        while(current->link!=NULL){
+            current = current->link;
+        }
+        current->link = p;
+        return root;
+    }
+    
+}
+void build_adjlist()
+{
+    int vi, vj, weight;
+    scanf("%d", &total_vertex);
+    
+    for ( vi = 0; vi < total_vertex; vi++){
+        visited[vi] = FALSE;
+        adjlist[vi] = NULL;
+    }
+
+    for ( vi = 0; vi < total_vertex; vi++ ){
+        for ( vj = 0; vj < total_vertex; vj++ ){
+            scanf("%d",&weight);
+            if ( weight == 1 )
+            {
+                adjlist[vi] = addnode(adjlist[vi], vj);
+            }
+        }
+    }
+}
+
+
+void show_adjlist(){
+    int i;
+    Node *ptr;
+
+    printf("Head    adjacency nodes\n");
+    printf("------------------------------\n");
+    for (i = 0; i < total_vertex; i++){
+        printf("V%-2d ",i);
+        ptr = adjlist[i];
+        while ( ptr != NULL )
+        {
+            printf("--> V%d ",ptr->vertex);
+            ptr = ptr->link;
+        }
+        printf("\n");
+    }
+}
+
+/*圖形之橫�'優先搜尋*/
+void Bfs(int v){
+    Node *ptr;
+    int w;
+    int queue[1000];
+    int front = 0;
+    int tail = 0;
+
+    printf("V%d ",v);
+    visited[v] = TRUE;/*設定v頂點為已拜訪過*/  
+    queue[tail++] = v;//將v�"�進queue, enqueue 
+    while(front!=tail){//如果queue不��空的 
+        v = queue[front++];//dequeue
+        ptr = adjlist[v];     
+        while ( ptr != NULL){    
+            w = ptr->vertex;
+
+            if ( !visited[w] ){
+                printf("V%d ",w);
+                visited[w] = TRUE;/*設定w頂點為已拜訪過*/  
+                queue[tail++]=w;
+            }
+            ptr = ptr->link;
+        
+        }
+         
+    }
+
+}
+
+/*
+10
+0 1 1 0 0 0 0 0 0 0
+1 0 0 1 1 0 0 0 0 0
+1 0 0 0 0 1 1 0 0 0
+0 1 0 0 0 0 0 1 0 0
+0 1 0 0 0 0 0 1 0 0
+0 0 1 0 0 0 0 0 1 0
+0 0 1 0 0 0 0 0 1 0
+0 0 0 1 1 0 0 0 0 1
+0 0 0 0 0 1 1 0 0 1
+0 0 0 0 0 0 0 1 1 0
+
+*/</code></pre>
+        <p>請在合適的編譯環境中執行該程式。</p>
+    </div>
+</body>
+</html>

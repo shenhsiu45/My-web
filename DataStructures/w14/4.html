@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prim's Algorithm for Minimum Cost Spanning Tree</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prim's Algorithm for Minimum Cost Spanning Tree</h1>
+        <p>以下是您提供的 C 語言程式碼:</p>
+        <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;limits.h&gt; 
+
+#define MAX_V 100000  /*最大節點數*/
+
+int total_vertex;
+int total_edge;
+int graph[MAX_V][MAX_V];  /*store matrix weight*/
+
+int minKey(int key[], bool mstSet[])
+{
+    // Initialize min value
+    int min = INT_MAX, min_index;
+ 
+    for (int v = 0; v &lt; total_vertex; v++){
+        if (mstSet[v] == false &amp;&amp; key[v] &lt; min){
+            min = key[v];
+            min_index = v;
+        }
+    }
+
+    return min_index;
+}
+
+// A utility function to print the
+// constructed MST stored in parent[]
+int printMST(int parent[], int graph[MAX_V][MAX_V])
+{
+    int min_cost = 0;
+    printf("Edge \tWeight\n");
+    for (int i = 1; i &lt; total_vertex; i++){
+        printf("%d - %d \t%d \n", parent[i], i, graph[i][parent[i]]);
+        min_cost += graph[i][parent[i]];
+    }
+    printf("minimun cost:%d\n", min_cost);   
+} 
+
+// Function to construct and print MST for
+// a graph represented using adjacency
+// matrix representation
+void primMST(int graph[MAX_V][MAX_V])
+{
+    // Array to store constructed MST
+    int parent[MAX_V];
+    
+    // Key values used to pick minimum weight edge in cut
+    int key[MAX_V];
+    
+    // To represent set of vertices included in MST
+    bool mstSet[MAX_V];
+ 
+    // Initialize all keys as INFINITE
+    for (int i = 0; i &lt; total_vertex; i++){
+        key[i] = INT_MAX;
+        mstSet[i] = false;
+    }
+        
+    // Always include first 1st vertex in MST.
+    // Make key 0 so that this vertex is picked as first vertex.
+    key[0] = 0;
+    parent[0] = -1; // First node is always root of MST
+ 
+    // The MST will have V vertices
+    for (int count = 0; count &lt; total_vertex - 1; count++) {
+        // Pick the minimum key vertex from the
+        // set of vertices not yet included in MST
+        int u = minKey(key, mstSet);
+ 
+        // Add the picked vertex to the MST Set
+        mstSet[u] = true;
+ 
+        // Update key value and parent index of
+        // the adjacent vertices of the picked vertex.
+        // Consider only those vertices which are not
+        // yet included in MST
+        for (int v = 0; v &lt; total_vertex; v++){
+            // graph[u][v] is non zero only for adjacent vertices of m
+            // mstSet[v] is false for vertices not yet included in MST
+            // Update the key only if graph[u][v] is smaller than key[v]
+            if (graph[u][v] &amp;&amp; mstSet[v] == false &amp;&amp; graph[u][v] &lt; key[v]){
+                parent[v] = u;
+                key[v] = graph[u][v];
+            }
+        }
+    }
+ 
+    // print the constructed MST
+    printMST(parent, graph);
+}
+
+int main(){
+    int i, j;
+    int n, m;
+    int x, y, cost;
+
+    printf("Enter the number of vertices and edges:\n");
+    scanf("%d%d", &amp;n, &amp;m);
+    total_vertex = n;
+    total_edge = m;
+    for(i=0; i&lt;total_vertex; i++){
+        for(j=0; j&lt;total_vertex; j++){
+            graph[i][j] = 0;
+        }
+    }
+ 
+    //setup adjmatrix
+    printf("Enter the edges with their weights:\n");
+    for(i=0; i&lt;total_edge;i++){
+        scanf("%d%d%d", &amp;x, &amp;y, &amp;cost);
+        graph[x][y] = cost;
+        graph[y][x] = cost;
+    }
+        
+    // Print the solution
+    primMST(graph);
+        
+    return 0;
+}</code></pre>
+        <p>請在合適的編譯環境中執行該程式。</p>
+    </div>
+</body>
+</html>

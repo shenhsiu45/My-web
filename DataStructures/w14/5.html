@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kruskal's Algorithm for Minimum Cost Spanning Tree</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kruskal's Algorithm for Minimum Cost Spanning Tree</h1>
+        <p>以下是您提供的 C 語言程式碼:</p>
+        <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;conio.h&gt;
+
+#define MAX_V 100000  /*最大節點數*/
+#define TRUE 1
+#define FALSE 0
+
+typedef struct {
+    int vertex1;
+    int vertex2;
+    int weight;
+    int edge_deleted;
+} Edge;
+
+Edge E[MAX_V];
+int parent[MAX_V];
+int total_vertex;
+int total_edge;
+
+void kruskal();
+Edge mincostEdge();
+int cyclicT(Edge e);
+void showEdge();
+int find(int parent[], int i);
+void Union(int parent[], int x, int y);
+
+int main(){
+    Edge e;
+    int i, j, weight;
+    int n, m;
+    int x, y, cost;
+
+    scanf("%d%d", &amp;n, &amp;m);
+    total_vertex = n;
+    total_edge = m;
+
+    // Initialize all subsets as single element sets
+    for(i=0; i&lt;total_vertex; i++){
+        parent[i] = -1;
+    }
+        
+    for(i=0; i&lt;total_edge;i++){
+        scanf("%d%d%d", &amp;x, &amp;y, &amp;cost);
+        e.vertex1 = x&gt;y?y:x;
+        e.vertex2 = x&gt;y?x:y;
+        e.weight = cost;
+        e.edge_deleted = FALSE;
+        E[i] = e;
+    }
+        
+    showEdge();
+        
+    puts("\nMinimum cost spanning tree using Kruskal");
+    puts("-------------------------------------------");
+    kruskal();
+        
+    return 0;
+}
+
+void showEdge()
+{
+    int  i;
+    printf("total vertex = %d  ",total_vertex);
+    printf("total_edge = %d\n",total_edge);
+    for (i=0; i &lt; total_edge; i++){
+        printf("V%d  &lt;----&gt;  V%d   weight= %d\n",E[i].vertex1, E[i].vertex2, E[i].weight);
+    }
+}
+
+Edge mincostEdge(){
+    int i , min;
+    long minweight = 10000000;
+
+    for ( i = 0; i &lt; total_edge; i++ ){
+        if (!E[i].edge_deleted &amp;&amp; E[i].weight &lt; minweight){
+            minweight = E[i].weight;
+            min = i;
+        }
+    }
+    E[min].edge_deleted = TRUE;
+    return E[min];
+}
+
+void kruskal()
+{
+    Edge e;
+    int loop = 1;
+    int total_cost = 0;
+    int num_edge = 0;
+
+    while ( num_edge != total_vertex - 1  ){
+        e = mincostEdge();
+
+        if ( !cyclicT(e) ){
+            printf("%dth min edge : ",loop++);
+            printf("V%d  &lt;----&gt;  V%d  weight= %d\n",
+                    e.vertex1, e.vertex2,e.weight);
+            total_cost += e.weight;
+            num_edge++;
+        }
+    }
+    printf("total_cost = %d\n", total_cost);
+}
+
+int cyclicT(Edge e)
+{
+    int x = find(parent, e.vertex1);
+    int y = find(parent, e.vertex2);
+
+    if ( x==y ){
+        return TRUE;
+    }
+    else{
+        Union(parent, x, y);
+        return FALSE;
+    }
+}
+
+//find the subset of an element x
+int find(int parent[], int x)
+{
+    int temp = parent[x];
+    while(temp!=-1){
+        x = temp;
+        temp = parent[x];
+    }
+    return x;
+}
+
+// A utility function to do union of two subsets, 
+//make y as the parent of x
+void Union(int parent[], int x, int y)
+{
+    parent[x] = y;
+}</code></pre>
+        <p>請在合適的編譯環境中執行該程式。</p>
+    </div>
+</body>
+</html>

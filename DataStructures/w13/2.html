@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>求和</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>良心題: 求和</h1>
+        <p>以下是您提供的 C 語言程式碼:</p>
+        <pre><code>#include &lt;stdio.h&gt;
+int sum(int);
+int main(){
+    int n;
+    
+    while(scanf("%d", &amp;n)!=EOF){
+        printf("%d\n", sum(n));
+    }
+    
+    return 0;
+} 
+int sum(int n){
+    if(n==0||n==1)
+        return n;
+    else return n+sum(n-1);
+}</code></pre>
+        <p>該程式接受從標準輸入中輸入的整數，並計算從1到該整數的總和。</p>
+        <p>請在合適的編譯環境中執行該程式。</p>
+    </div>
+</body>
+</html>

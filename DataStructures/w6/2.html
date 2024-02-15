@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>b923. stack 堆疊的模板題</title>
+</head>
+<body>
+<p>程式碼：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#define MAX 100000
+
+int stack[MAX];
+int top = -1;
+
+void deletetop(void){
+	if(top==-1){
+		printf("stack is empty\n");
+	}
+	else top--;
+}
+
+void showtop(void){
+	if(top==-1){
+		printf("stack is empty\n");
+	}
+	else printf("%d\n", stack[top]);
+}
+
+void push(int n){
+	if(top==MAX-1){
+		printf("Stack is full!\n");
+	}else{
+		top++;
+		stack[top] = n;
+	}
+}
+
+int main(){
+	int n;
+	int m, num;
+	int i;
+
+	scanf("%d", &n);
+
+	for(i=0; i<n; i++){
+		scanf("%d", &m);
+		switch(m){
+			case 1:
+				deletetop();
+				break;
+			case 2:
+				showtop();
+				break;
+			case 3:
+				scanf("%d", &num);
+				push(num);
+		}
+	}
+	return 0;
+}
+</code></pre>
+</body>
+</html>

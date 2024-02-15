@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Node in the Tail of a Linked List (Version 2)</title>
+</head>
+<body>
+<p>Add Node in the Tail of a Linked List (Version 2) 程式碼：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next; 
+};
+
+void addNodeTail(struct node **start, struct node **tail, int num) {
+    struct node *x = (struct node*)malloc(sizeof(struct node));
+    x -&gt;data = num;
+    x -&gt;next = NULL;
+    if (*start == NULL && *tail == NULL) {
+        *start = x;
+        *tail = x;
+    } else {
+        (*tail)-&gt;next = x;
+        *tail = x;
+    }
+}
+
+void printNode(struct node* start) {
+    while (start != NULL) {
+        printf("%d--&gt;", start-&gt;data);
+        start = start-&gt;next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct node *head = NULL; 
+    struct node *end = NULL; 
+    int n;
+    
+    while (scanf("%d", &n) != EOF) {
+        addNodeTail(&head, &end, n);
+    }
+    printNode(head);
+    
+    return 0;
+}
+</code></pre>
+</body>
+</html>

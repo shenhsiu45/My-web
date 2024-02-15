@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concatenate Two Linked Lists</title>
+</head>
+<body>
+<h1>Concatenate Two Linked Lists</h1>
+<p>程式碼：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+struct node {
+    char data[100];
+    struct node *next;
+};
+
+struct node* addnode(struct node* start, char str[]) {
+    struct node *x = (struct node*)malloc(sizeof(struct node));
+    strcpy(x->data, str);
+    x->next = start;
+    start = x;
+    return start;
+}
+
+void printNode(struct node* start) {
+    while(start != NULL) {
+        printf("%s-->", start->data);
+        start = start->next;
+    }
+    printf("NULL\n");
+}
+
+struct node* concate(struct node* x, struct node* y) {
+    struct node *z, *c;
+    if(x == NULL) {
+        z = y;
+    } else if(y == NULL) {
+        z = x;
+    } else {
+        z = x;
+        c = x;
+        while(c->next != NULL) {
+            c = c->next;
+        }
+        c->next = y;
+    }
+    return z;
+}
+
+int main() {
+    struct node *x = NULL;
+    struct node *y = NULL;
+    struct node *z = NULL;
+    char s[100];
+    printf("Create x:\n");
+    while(scanf("%s", s) != EOF) {
+        x = addnode(x, s);
+    }
+    printNode(x);
+    printf("Create y:\n");
+    while(scanf("%s", s) != EOF) {
+        y = addnode(y, s);
+    }
+    printNode(y);
+    printf("Concatenating two linked lists:\n");
+    z = concate(x, y);
+    printNode(z);
+    return 0;
+}
+</code></pre>
+</body>
+</html>
+</code></pre>
+</body>
+</html>

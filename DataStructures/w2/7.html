@@ -1,23 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1+2+....+n</title>
+    <title>Pointer 重要觀念</title>
 </head>
 <body>
-    <pre><code>#include &lt;stdio.h&gt;
-
+    <h2>Pointer 重要觀念</h2>
+    <p>老師姑且把目前所教的變數分為三類：一般變數、單指標變數、雙指標變數。</p>
+    <h3>一般變數(variable)</h3>
+    <p>例如 int a; char b; double c; 一般變數用來儲存特定的數值。</p>
+    <h3>單指標變數(single pointer variable)</h3>
+    <p>例如 int *a; char *b; double *c;「單指標變數」是用來儲存「一般變數」的記憶體的位址(address)。</p>
+    <h3>雙指標變數(double pointer variable)</h3>
+    <p>例如 int **a; char **b; double **c;「雙指標變數」是用來儲存「單指標變數」的記憶體位址。</p>
+    <h3>1. 使用 Call by Value</h3>
+    <pre>
 int main(){
-    int n;
-    int i;
-    int sum = 0;
-    scanf("%d", &n);
-    for(i=1; i&lt;=n; i++){
-        sum = sum + i;
-    }
-    printf("%d\n", sum);
+    int a = 10;
+    f(a);
     return 0;
-}</code></pre>
+}
+
+void f(int n){
+    n = n * 2;
+}
+呼叫 f(a) 前，a 是 10
+呼叫後，a 還是 10
+在 function 內部 a 的副本變成 20
+    </pre>
+    <h3>2. 使用單指標變數</h3>
+    <pre>
+int main(){
+    int a = 10;
+    f(&a); // & 用來取得 a 的 address
+    return 0;
+}
+
+void f(int *n){
+    *n = *n * 2;
+}
+呼叫 f(&a) 前，a 是 10
+呼叫後，a 變成 20
+在 function 內部，*n 就是對 n 做 dereference，意義就是間接讀取 n 這個 single pointer 所指向的一般變數。等同將主程式中的 a 做 a * 2 的動作。
+    </pre>
+    <h3>3. 使用雙指標變數</h3>
+    <pre>
+int main( void ){
+    int b[2] = {1, 2};
+    int *ptr = b; // int *ptr = &b[0];
+    printf("*ptr is %d\n", *ptr);
+    f(&ptr);
+    printf("*ptr is %d\n", *ptr);
+    return 0;
+}
+
+void f(int **pp){
+    (*pp)++;
+}
+呼叫 f(&ptr); 前 ptr 指向 b[0]，所以輸出 1，呼叫後 ptr 指向 b[1]，所以輸出 2。&ptr 是取得 ptr 這個單指標變數的位址。
+這個 function 的 argument 是一個「雙指標變數」，用來儲存「單指標變數」的位址。*pp 是對這個「雙指標變數」作 dereference，意義就是間接讀取 pp 這個 double pointer 所指向的「單指標變數」。然後將這個「單指標變數」做 ++ 的動作，換句話說將主程式中的 ptr 做 ++ 的動作。
+    </pre>
 </body>
 </html>

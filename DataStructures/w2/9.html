@@ -3,39 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Binary Search Example</title>
+    <title>Array Names vs Pointer Variables</title>
 </head>
 <body>
-    <pre><code>#include &lt;stdio.h&gt;
-#define MAX 8
+    <h2>Array Names vs Pointer Variables</h2>
+    <p>當我們宣告一個array，array的name代表這個array的啟始位置starting address（或稱第一個element的位置），array的name可以拿來當作pointer使用，但它的值是不可以被更改的。為保證array的name所代表的address不可以被更改，C語言不准許array name當作Lvalue變數。如果有需要,必須另外宣告一個pointer，並將array name assign給個這個pointer。例如：</p>
+    <pre><code class="language-c">
+/* Array的name被當作pointer來出初始化array的內容 */
+#include &lt;stdio.h&gt;
 
-int main(){
-    int s[MAX] = {10, 20, 30, 40, 50, 60, 70, 80};
-    int key;
-    int count = 0;
-    int L = 0;
-    int R = MAX-1;
-    int M;
-    scanf("%d", &key);
-    while(L&lt;=R){
-        M = (L+R)/2;
-        count++;
-        if(s[M]==key){
-            printf("%d in s[%d]\n", key, M);
-            break;
-        }
-        else if(key &gt; s[M]){
-            L = M+1;
-        }
-        else{
-            R = M-1;
-        }
+int main() {
+    int i;
+    float X[MAX];
+    for (i = 0; i &lt; MAX; i++)
+        *(X + i) = 0.0; /* same as X[i] */
+}
+    </code></pre>
+    <p>在上面的for迴圈中, *(X + i) 等同於X[i]. 由於X是一個constant，不可以用increment operator（X++）或當Lvalue (X=X+1)，這都是不允許的。下例中，錯誤發生於increment operator ，企圖把array name當Lvalue 。</p>
+    <pre><code class="language-c">
+/* BUG: Attempt to use an array name as an Lvalue */
+#include &lt;stdio.h&gt;
+int main() {
+    int i;
+    float X[MAX];
+    for (i = 0; i &lt; MAX; i++) {
+        *X = 0.0;
+        X++; /* BUG: X = X + 1; */
     }
-    if(L&gt;R){
-        printf("%d is not in array!\n", key);
+}
+    </code></pre>
+    <p>正確的作法是宣告一個指標變數(pointer variable)，並將array name指定給這個指標變數，這個指標變數就可以當作Lvalue。如下例：</p>
+    <pre><code class="language-c">
+#include &lt;stdio.h&gt;
+int main() {
+    int i;
+    float *ptr, X[MAX];
+    ptr = X; /* ptr is a variable which can be assigned a value */
+    for (i = 0; i &lt; MAX; i++) {
+        *ptr = 0.0; /* *ptr accesses X[i] */
+        ptr++;
     }
-    printf("count:%d\n", count);
+}
+    </code></pre>
+    <p>另外注意利用&array name跟array name是同樣的結果：</p>
+    <pre><code class="language-c">
+#include &lt;stdio.h&gt;
+int main() {
+    char string[]= "characters and $32.98";
+    char *sPtr = string; // declare a char pointer sPtr
+    char **ssPtr = &sPtr;
+    printf( "%p\n", string );
+    printf( "%p\n", &string ); // 結果與 string 相同
+    printf( "%p\n", sPtr );
+    printf( "%p\n", ssPtr );
     return 0;
-}</code></pre>
+}
+    </code></pre>
 </body>
 </html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Front Node</title>
+</head>
+<body>
+<p>Delete Front Node 程式碼：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next; 
+};
+
+struct node* addnode(struct node* start, int num) {
+    struct node *x = (struct node*)malloc(sizeof(struct node));
+    x -&gt;data = num;
+    x -&gt;next = start;
+    start = x;
+    return start;
+}
+
+void printNode(struct node* start) {
+    while (start != NULL) {
+        printf("%d--&gt;", start-&gt;data);
+        start = start-&gt;next;
+    }
+    printf("NULL\n");
+}
+
+// Delete front node
+struct node* delnode(struct node* start) {
+    struct node *p = start;
+    if (start == NULL) {
+        printf("The list is empty!\n");
+        return NULL;
+    }
+    start = start-&gt;next;
+    free(p);
+    return start;
+}
+
+int main() {
+    struct node *head = NULL; 
+    int n;
+    
+    while (scanf("%d", &amp;n) != EOF) {
+        head = addnode(head, n);
+    }
+    printNode(head);
+    
+    while (head != NULL) {
+        head = delnode(head);
+        printNode(head);
+    }
+    
+    return 0;
+}
+</code></pre>
+</body>
+</html>

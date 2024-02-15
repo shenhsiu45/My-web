@@ -1,71 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Review of C language(I)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pointer and Pointee</title>
 </head>
 <body>
-<h2>1. Preprocessor (預處理器)</h2>
-<h3>1.1 Include Header Files (標頭檔)</h3>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;math.h&gt;</code></pre>
-<h3>1.2 Define Constant Macro</h3>
-<pre><code>#define KMS_PER_MILE 1.609
-#define PI 3.14159</code></pre>
+    <h2>Pointer and Pointee</h2>
+    <p>每個指標(pointer)一定指向一個實體的記憶體空間，稱為它的pointee。有了pointee的pointer才可以做dereference，否則對一個沒有指向實體空間的pointer作dereference，會造成當機。</p>
+    <pre>
+#include &lt;stdio.h&gt;
 
-<h2>2. Comments (註解)</h2>
-<h3>2.1 Block Comments (區塊註解)</h3>
-<pre><code>/* This is a block comment */</code></pre>
-<h3>2.2 Line Comment (行註解)</h3>
-<pre><code>// This is a line comment</code></pre>
-
-<h2>3. C的主程式架構:</h2>
-<p>Preprocessor 包括 include header files 和 define const macro</p>
-<p>Function prototype 宣告</p>
-<p>Global variables 宣告</p>
-<pre><code>//主程式進入點
 int main(){
-   //區域變數(local variable)宣告;
-   //程式主體；
-   return 0;  //主程式結束，傳回0
+
+    int count = 10;
+    int *p; // p is a pointer
+    int *p2;
+
+    p = &amp;count; // & is used to get the address of the count, count is pointee
+    p2 = p;
+
+    printf("The count is %d\n", count); // 10
+
+    *p = 20;
+    printf("The count is %d\n", count); // 20
+
+    *p2 = 30;
+    printf("The count is %d\n", count); // 30
+
+    return 0;
 }
-函式定義(function definition);</code></pre>
-
-<h2>4. 變數型態</h2>
-<p>需注意不同資料型態可以表示的數字範圍</p>
-<ul>
-<li>int: -2,147,483,648 -&gt; +2,147,483,647 (2Gb)</li>
-<li>unsigned int: 0 -&gt; +4,294,967,295 (4Gb)</li>
-<li>float: 1.2*10的-38次方到3.4*10的38次方</li>
-<li>double: 2.2*10的-308次方到1.8*10的308次方</li>
-<li>char: -128 -&gt; +127</li>
-<li>unsigned char: 0 -&gt; +255</li>
-<li>short int: -32,768 -&gt; +32,767 (32kb)</li>
-<li>unsigned short int: 0 -&gt; +65,535 (64Kb)</li>
-</ul>
-
-<h2>5. 變數名稱與宣告</h2>
-<p>An identifier must consist only of letters, digits and underscores.</p>
-<p>An identifier cannot begin with a digit.</p>
-<p>A C reserved word cannot be used as an identifier.</p>
-<p>An identifier defined in a C standard library should not be redefined.</p>
-<p>一行宣告一個變數: int miles;</p>
-<p>一行宣告多個變數: int a, b, c, d;</p>
-<p>大小寫有區別，case sensitive</p>
-<p>Declarations appear before executable statements</p>
-<p>If an executable statement references undeclared variable, it will produce a syntax (compiler) error</p>
-
-<h2>6. 整數運算必須避免 Overflow</h2>
-<p>Overflow 代表運算結果超出變數可以儲存的範圍</p>
-<pre><code>例如:
-int a, b, c;
-a = 2147483647;
-b = 1;
-c = a + b;
-則c的結果將會是 -2147483648</code></pre>
-</body>
-</html>
+    </pre>
 </body>
 </html>

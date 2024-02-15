@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>遞迴函式: 1+2+...+N</title>
+</head>
+<body>
+<h1>遞迴函式: 1+2+...+N</h1>
+<p>下面是計算 1+2+...+N 的遞迴和迴圈範例：</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int recursiveF(int n);
+int loopF(int n);
+
+int main() {
+    int number;
+    printf("請輸入一個數字：");
+    while (scanf("%d", &number) != EOF) {
+        printf("迴圈算法: %d\n", loopF(number));
+        printf("遞迴算法: %d\n", recursiveF(number));
+    }
+    return 0;
+}
+
+int recursiveF(int n) {
+    if (n == 0 || n == 1) {
+        return n;
+    } else {
+        return n + recursiveF(n - 1);
+    }
+}
+
+int loopF(int n) {
+    int result = 0;
+    for (int i = 1; i <= n; ++i) {
+        result += i;
+    }
+    return result;
+}
+</code></pre>
+</body>
+</html>

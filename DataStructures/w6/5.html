@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Example of Linear Search Function</title>
+</head>
+<body>
+<p>程式碼：</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int linearSearch(int s[], int key, int n){
+    int i;
+    for(i=0; i&lt;n; i++){
+        if(s[i]==key){
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main(){
+    int s[10] = {10, 22, 45, 66, 77, 89, 99, 101, 120, 144};
+    int key, pos;
+    
+    scanf("%d", &key);
+    pos = linearSearch(s, key, 10);
+    
+    if(pos==-1){
+        printf("%d cannot be found in this array!\n", key);
+    }
+    else{
+        printf("%d is found at %d\n", key, pos);
+    }
+    
+    return 0;
+}
+</code></pre>
+</body>
+</html>

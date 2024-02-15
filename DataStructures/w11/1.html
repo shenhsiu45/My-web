@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circular Queue</title>
+</head>
+<body>
+<h1>Circular Queue</h1>
+<p>程式碼：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+struct node* addCircularNode(struct node* start, int num) {
+    struct node *x = (struct node*)malloc(sizeof(struct node));
+    struct node *tail;
+    if (start == NULL) {
+        x->data = num;
+        x->next = x;
+        start = x;
+        return start;
+    } else {
+        tail = start;
+        while (tail->next != start) {
+            tail = tail->next;
+        }
+        x->data = num;
+        x->next = start;
+        start = x;
+        tail->next = x;
+        return start;
+    }
+
+}
+
+void printCircularNode(struct node* start) {
+    struct node *p = start;
+    while (p->next != start) {
+        printf("%d-->", p->data);
+        p = p->next;
+    }
+    printf("%d-->%d\n", p->data, p->next->data);
+}
+
+
+int main() {
+    struct node *head = NULL;
+    int n;
+
+    printf("Enter elements for the circular queue (enter any non-numeric value to end):\n");
+    while (scanf("%d", &n) != EOF) {
+        head = addCircularNode(head, n);
+    }
+    printCircularNode(head);
+
+    return 0;
+}
+</code></pre>
+</body>
+</html>

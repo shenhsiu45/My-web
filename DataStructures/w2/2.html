@@ -1,59 +1,34 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>指標用於動態記憶體配置的範例</title>
+    <title>function重要觀念: Call by value</title>
 </head>
-
 <body>
-
-    <h1>指標用於動態記憶體配置的範例</h1>
-    <p>以下是一個使用指標進行動態記憶體配置的C語言範例。在這個範例中，我們將演示如何動態地創建一個整數陣列，並在程式執行時分配和釋放記憶體。</p>
-
-    <pre><code>
+    <h2>function重要觀念: Call by value</h2>
+    <p>呼叫者複製一份參數傳給function，function內部對該變數進行操作，不會改變原有呼叫者的參數值。</p>
+    <pre><code class="language-c">
 #include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
 
-int main() {
-    int n; // 陣列大小
-    printf("請輸入陣列大小：");
-    scanf("%d", &n);
+void add3(int, int, int);
 
-    // 使用 malloc 函式分配記憶體
-    int *arr = (int *)malloc(n * sizeof(int));
-
-    if (arr == NULL) {
-        printf("記憶體分配失敗\n");
-        return 1;
+int main(){
+    int x, y, z;
+    while(scanf("%d%d%d", &x, &y, &z) != EOF){
+        printf("Before add3: %d %d %d\n", x, y, z);
+        add3(x, y, z);
+        printf("Outside add3: %d %d %d\n", x, y, z);
     }
-
-    // 初始化陣列
-    for (int i = 0; i &lt; n; i++) {
-        arr[i] = i * 2;
-    }
-
-    // 輸出陣列元素
-    printf("陣列元素：");
-    for (int i = 0; i &lt; n; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-
-    // 釋放動態分配的記憶體
-    free(arr);
-
     return 0;
 }
+
+void add3(int a, int b, int c){
+    a += 3;
+    b += 3;
+    c = c + 3;
+    printf("inside add3:%d %d %d\n", a, b, c);
+}
     </code></pre>
-
-    <p>在這個範例中，我們使用了 malloc 函式（位於 stdlib.h 標頭檔中）來動態地分配記憶體，並為整數陣列分配了足夠的記憶體空間。如果記憶體分配成功，我們就可以像使用普通陣列一樣操作這個動態分配的陣列。</p>
-    
-    <p>完成操作後，我們使用 free 函式來釋放先前分配的記憶體，以防止記憶體洩漏。這樣，我們可以確保在不再需要記憶體時將其歸還給系統。</p>
-
-    <p>這只是動態記憶體配置的一個簡單範例，實際上，動態分配的記憶體可以用於更複雜的資料結構，例如鏈結串列、樹和字串等。在使用指標進行動態記憶體配置時，確保在不需要使用時及時釋放記憶體，以避免記憶體洩漏和浪費。</p>
-
 </body>
-
 </html>

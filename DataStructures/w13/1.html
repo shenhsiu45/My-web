@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>指標用於動態記憶體配置的範例</title>
+</head>
+
+<body>
+
+    <h1>河內塔</h1>
+    <pre><code>
+        #include &lt;stdio.h&gt;
+            void HanoiTower(int ,char,char,char);
+            
+            int main()
+            {
+            
+                int n;
+                char A = 'A' , B = 'B' , C = 'C';
+            
+                printf("-----Hanoi Tower Implementaion----\n");
+                /*輸入共有幾個盤子在A柱子中*/
+                printf("How many disks in A ? ");
+                scanf("%d",&n);
+                if ( n == 0 )
+                    printf("no disk to move\n");
+                else
+                    HanoiTower(n,A,C,B);
+                system("PAUSE");
+                return 0;
+            }
+            /* 遞迴函數呼叫求河內塔之解 */
+            void HanoiTower(int n,char a,char c,char b)
+            {
+                if ( n == 1 )
+                    printf("Move disk %d from %c to %c\n",n, a,c);
+                else
+                {
+                    /*將A上n-1個盤子借助C移至B */
+                    HanoiTower(n-1,a,b,c);
+                    printf("Move disk %d from %c to %c\n",n,a,c);
+                    /*將B上n-1個盤子借助A移至C */
+                    HanoiTower(n-1,b,c,a);
+                }
+            }
+    </code></pre>
+</body>
+
+</html>

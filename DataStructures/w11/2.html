@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circular Queue Optimization</title>
+</head>
+<body>
+<h1>Circular Queue Optimization</h1>
+<p>Below is the optimized version of the circular queue program:</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+void addCircularNode(struct node **start, struct node **tail, int num) {
+    struct node *x = (struct node*)malloc(sizeof(struct node));
+
+    if (*start == NULL) {
+        x->data = num;
+        x->next = x;
+        *start = x;
+        *tail = x;
+    } else {
+        x->data = num;
+        x->next = *start;
+        *start = x;
+        (*tail)->next = *start;
+    }
+}
+
+void printCircularNode(struct node* start) {
+    struct node *p = start;
+    while (p->next != start) {
+        printf("%d-->", p->data);
+        p = p->next;
+    }
+    printf("%d-->%d\n", p->data, p->next->data);
+}
+
+int main() {
+    struct node *head = NULL;
+    struct node *tail = NULL;
+    int n;
+
+    printf("Enter elements for the circular queue (enter any non-numeric value to end):\n");
+    while (scanf("%d", &n) != EOF) {
+        addCircularNode(&head, &tail, n);
+    }
+    printCircularNode(head);
+
+    return 0;
+}
+</code></pre>
+</body>
+</html>

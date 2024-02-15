@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linked List Operations</title>
+</head>
+<body>
+<p>程式碼：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int data;
+    struct node *next; 
+};
+
+struct node* addnode(struct node* start, int num) {
+    struct node *x = (struct node*)malloc(sizeof(struct node));
+    if (x != NULL) {
+        x -&gt;data = num;
+        x -&gt;next = start;
+        start = x;
+        return start;
+    } else {
+        return NULL;
+    }
+}
+
+struct node* delnode(struct node* start) {
+    struct node *temp = start;
+    if (start == NULL) {
+        printf("The list is empty!\n");
+        return NULL;
+    } else {
+        printf("%d is pop!\n", start-&gt;data);
+        start = start-&gt;next;
+        free(temp);
+        return start;
+    }
+}
+
+void printNode(struct node* start) {
+    while (start != NULL) {
+        printf("%d--&gt;", start-&gt;data);
+        start = start-&gt;next;
+    }
+    printf("NULL\n");
+}
+
+int length(struct node* start) {
+    int count = 0;
+    while (start != NULL) {
+        count++;
+        start = start-&gt;next;
+    }
+    return count;
+}
+
+int main() {
+    struct node *head = NULL; 
+    int n;
+    int i;
+    int count;
+    
+    while (scanf("%d", &n) != EOF) {
+        head = addnode(head, n);
+        printNode(head);
+    }
+    
+    count = length(head);
+    printf("The number of nodes: %d\n", count);
+    
+    for (i = count; i &gt; 0; i--) {
+        head = delnode(head);
+        printNode(head);
+    }
+    
+    return 0;
+}
+</code></pre>
+</body>
+</html>

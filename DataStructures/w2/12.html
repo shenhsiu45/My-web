@@ -1,81 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大數減法範例_函式</title>
+    <title>Homework 0912</title>
 </head>
 <body>
-    <pre><code>#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
-
-#define SIZE 100
-
-void convertStrInt(char s[], int n[]){
-    int i, j;
-    for(i=0, j=strlen(s)-1;j>=0;i++,j--){
-        n[i] = s[j] - '0';
-    }
-}
-
-void bigsub(int n1[], int n2[], int sum[]){
-    int borrow = 0;
-    int i;
-    for(i=0; i&lt;SIZE; i++){
-        sum[i] = n1[i] - n2[i] - borrow;
-        if(sum[i]&lt;0){
-            borrow = 1;
-            sum[i] = sum[i] + 10;
-        }else{
-            borrow = 0;
-        }
-    }
-}
-
-void printSum(int sum[]){
-    int i;
-    for(i=SIZE-1; i>=0; i--){
-        if(sum[i]!=0) break;
-    }
-    for(;i>=0; i--){
-        printf("%d", sum[i]);
-    }
-    printf("\n");
-}
-
-void get10complement(int sum[]){
-    int i;
-    //This for loop is to get 9's complement    
-    for(i=0; i&lt;SIZE; i++){
-        sum[i] = 9 - sum[i];
-    }
-    sum[0] = sum[0] + 1;//get 10's complement
-    for(i=0; i&lt;SIZE-1; i++){
-        if(sum[i]&gt;=10){
-            sum[i+1] +=1;//sum[i+1] = sum[i+1]+1
-            sum[i] %=10;//sum[i] = sum[i] %10 
-        }
-    }
-}
-
-int main(){
-    char s1[SIZE], s2[SIZE];
-    int n1[SIZE]={0};
-    int n2[SIZE]={0};
-    int sum[SIZE]={0};
-    scanf("%s", s1);
-    scanf("%s", s2);
-    convertStrInt(s1, n1);
-    convertStrInt(s2, n2);
-    bigsub(n1, n2, sum);
-    if(sum[SIZE-1]==0){
-        printSum(sum);
-    }else{
-        get10complement(sum);
-        printf("-");
-        printSum(sum);
-    }
-    return 0;
-}</code></pre>
+    <p><a href="https://ws5618-my.sharepoint.com/:f:/g/personal/samuel_ws5618_onmicrosoft_com/ElBrFtAhd5ZMp2AbSNVvULoBJ5j1lou-dPe0qYKdhIG_Dg?e=PTosm7">雲端ＨＷ</a></p>
+    <h2>Homework 0912</h2>
+    <h3>1. b964. 第 1 題 成績指標</h3>
+    <p>將問題分解為四個function</p>
+    <ul>
+        <li>void bubblesort(int [], int);</li>
+        <li>void printArray(int [], int);</li>
+        <li>void searchlessthan60(int [], int);</li>
+        <li>void searchhighthan60(int [], int);</li>
+    </ul>
+    <h3>2. c087. 00412 - Pi (<a href="https://zerojudge.tw/ShowProblem?problemid=c087">https://zerojudge.tw/ShowProblem?problemid=c087</a>)</h3>
 </body>
 </html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Tree (Stack Implementation)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Binary Search Tree (Stack Implementation)</h1>
+        <p>以下是您提供的 C 語言程式碼:</p>
+        <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node{
+    struct node *left;
+    int data;
+    struct node *right;
+};
+
+void insertNode2(struct node **root, int n){
+    struct node *p = *root;
+    struct node *prev = NULL;
+    int ll,rr;
+    struct node *x = (struct node *)malloc(sizeof(struct node));
+    x->data = n;
+    x->left = NULL;
+    x->right = NULL;
+    if(p==NULL){
+        *root = x;
+    }else{
+        while(p!=NULL){
+            prev = p;
+            ll = rr = 0;
+            if(n &gt; p->data){
+                p = p->right;
+                rr = 1;
+            }else{
+                p = p->left;
+                ll = 1;
+            }
+        }
+        if(rr){
+            prev->right = x;
+        }else{
+            prev->left = x;
+        }
+
+    } 
+}
+
+void inorder2(struct node *p){
+    struct node *stack[100];
+    int top = -1;
+
+
+    if(p==NULL){
+        printf("The tree is empty!\n");
+    }else{
+        while(1){
+            while(p!=NULL){
+                top++;
+                stack[top] = p;
+                p = p->left;
+            }
+            if(top!=-1){
+                p = stack[top];
+                top--;
+                printf("%d ", p->data);
+                p=p->right;
+            }else{
+                break;//the stack is empty
+            }
+        }
+    }
+}
+
+void preOrder2(struct node *p){ 
+    struct node *stack[100];
+    int top = -1;
+    while(p!=NULL || top!=-1){
+        if(p==NULL)
+            p = stack[top--];
+        printf( "%d ", p->data );
+        if(p->right)
+            stack[++top] = p->right;    
+        p = p -> left;
+    }
+}
+
+void postOrder2(struct node *p){ 
+    struct node *stack[100];
+    int top = -1;
+
+    while(p!=NULL||top!=-1){
+        if(p==NULL){
+            while(top!=-1 &amp;&amp; p==stack[top]-&gt;right){
+                p = stack[top];
+                top--;
+                printf("%d ", p->data);
+            }
+            p = (top==-1)?NULL:stack[top]-&gt;right;
+        }
+        if(p!=NULL){
+            ++top;
+            stack[top] = p;
+            p = p-&gt;left;
+        }
+    }
+}
+
+int main(){
+    struct node *tree = NULL;
+    int n;
+    
+    while(scanf("%d", &n)!=EOF){
+        insertNode2(&tree, n);
+    }
+    printf( "\n\nThe inOrder traversal is:\n" );
+    inorder2(tree);
+    
+    printf( "\n\nThe preOrder traversal is:\n" );
+    preOrder2(tree);
+    
+    printf( "\n\nThe postOrder traversal is:\n" );
+    postOrder2(tree);
+        
+    return 0;
+}</code></pre>
+        <p>請在合適的編譯環境中執行該程式。</p>
+    </div>
+</body>
+</html>

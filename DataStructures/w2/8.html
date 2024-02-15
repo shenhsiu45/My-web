@@ -1,23 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N!</title>
+    <title>何時要用Pointer?</title>
 </head>
 <body>
-    <pre><code>#include &lt;stdio.h&gt;
+    <h2>何時要用Pointer?</h2>
+    <p>何時要用Pointer?我想這是初學pointer的同學一定有的問題。簡單的說，當你想在呼叫function時，改變某一個變數的值，那就要把這個變數的位址傳給function，在function內利用dereferencing pointer來改變變數的值，這就是所謂call by pointer.</p>
+    <p>在C語言裡，我們可以使用pointer指向一個實體變數，因此如果把實體變數的address傳到一個funtion的pointer，那在function內就可以改變此pointer所指向的實體變數的值。</p>
+    <pre><code class="language-c">
+#include &lt;stdio.h&gt;
 
-int main(){
-    int n;
-    int i;
-    int product = 1;
-    scanf("%d", &n);
-    for(i=1; i&lt;=n; i++){
-        product = product * i;
-    }
-    printf("%d\n", product);
-    return 0;
-}</code></pre>
+void swap(int*, int*);
+
+int main( void )
+{
+    int a = 10;
+    int b = 20;
+    printf("Before swapping, a is %d, b is %d\n", a, b);
+    swap(&a, &b);
+    printf("After swapping, a is %d, b is %d\n", a, b);
+    return 0; 
+}
+
+void swap( int *aPtr, int *bPtr )
+{
+    int temp;
+    temp = *aPtr;
+    *aPtr = *bPtr;
+    *bPtr = temp;
+}
+    </code></pre>
 </body>
 </html>

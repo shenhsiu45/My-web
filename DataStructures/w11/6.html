@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>遞迴範例 N!</title>
+</head>
+<body>
+<h1>遞迴範例 N!</h1>
+<p>下面是計算 N! 的遞迴和迴圈範例：</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int f(int);
+int f1(int);
+
+int main() {
+    int n;
+    printf("請輸入數字 n：");
+    scanf("%d", &n);
+    printf("遞迴算法: %d 的階乘是 %d\n", n, f(n));
+    printf("迴圈算法: %d 的階乘是 %d\n", n, f1(n));
+    return 0;
+}
+
+int f(int n) {
+    if (n == 0 || n == 1) {
+        return 1;
+    } else {
+        return n * f(n - 1);
+    }
+}
+
+int f1(int n) {
+    int result = 1;
+    for (int i = 1; i <= n; ++i) {
+        result *= i;
+    }
+    return result;
+}
+</code></pre>
+</body>
+</html>
+</html>

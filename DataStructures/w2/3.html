@@ -1,42 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>在function內使用malloc的陣列可以回傳嗎?</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example: GCD</title>
 </head>
 <body>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
+    <h2>Example: GCD</h2>
+    <p>This program calculates the greatest common divisor (GCD) of two integers.</p>
+    <pre>
+#include &lt;stdio.h&gt;
 
-int* createAndReturnArray(int size) {
-    int* arr = (int*)malloc(size * sizeof(int));
-    
-    if (arr == NULL) {
-        // 處理內存分配失敗的情況
-        exit(1);
+int main(){
+    int a, b, r;
+    while(scanf("%d%d", &a, &b)!=EOF){
+        r = a % b;
+        while(r!=0){
+            a = b;
+            b = r;
+            r = a % b;
+        }
+        printf("%d\n", b);
     }
-    
-    // 初始化陣列或執行其他操作
-    for (int i = 0; i &lt; size; i++) {
-        arr[i] = i + 1;
-    }
-    
-    return arr;
-}
-
-int main() {
-    int size = 5;
-    int* result = createAndReturnArray(size);
-    
-    for (int i = 0; i &lt; size; i++) {
-        printf("%d ", result[i]); // 輸出：1 2 3 4 5
-    }
-    
-    // 釋放動態分配的內存
-    free(result);
-    
     return 0;
-}</code></pre>
+}
+    </pre>
 </body>
 </html>

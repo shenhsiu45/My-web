@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Tree Node Insertion (Recursive Version 2)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Binary Search Tree Node Insertion (Recursive Version 2)</h1>
+        <p>以下是您提供的 C 語言程式碼:</p>
+        <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node{
+    struct node *left;
+    int data;
+    struct node *right;
+};
+
+struct node* insertNode(struct node *root, int n){
+    if(root == NULL){
+        root = (struct node *)malloc(sizeof(struct node));
+        root-&gt;data = n;
+        root-&gt;left = NULL;
+        root-&gt;right = NULL;
+        return root;
+    }else{
+        if(n &gt; root-&gt;data){
+            root-&gt;right = insertNode(root-&gt;right, n);
+        }else if(n &lt; root-&gt;data){
+            root-&gt;left = insertNode(root-&gt;left, n);
+        }else{
+            printf("dup");
+        }
+    }
+
+}
+
+void inorder(struct node *root){
+  if (root!=NULL){
+      inorder(root-&gt;left);
+      printf("%d ", root-&gt;data);
+      inorder(root-&gt;right);
+  }
+}
+
+void preOrder(struct node *root){ 
+   if (root!= NULL ) { 
+      printf( "%d ", root-&gt;data );
+      preOrder( root-&gt;left );
+      preOrder( root-&gt;right );
+   }
+}
+
+void postOrder(struct node *root){ 
+   if (root!= NULL ) { 
+      postOrder( root-&gt;left );
+      postOrder( root-&gt;right );
+      printf( "%d ", root-&gt;data );
+   }
+}
+
+int main(){
+    struct node *tree = NULL;
+    int n;
+    
+    while(scanf("%d", &n)!=EOF){
+        tree = insertNode(tree, n);
+    }
+    printf( "\n\nThe inOrder traversal is:\n" );
+    inorder(tree);
+    
+    printf( "\n\nThe preOrder traversal is:\n" );
+    preOrder(tree);
+    
+    printf( "\n\nThe postOrder traversal is:\n" );
+    postOrder(tree);
+        
+    return 0;
+}</code></pre>
+        <p>請在合適的編譯環境中執行該程式。</p>
+    </div>
+</body>
+</html>

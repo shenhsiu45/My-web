@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>e447: Queue Practice</title>
+</head>
+<body>
+<p>e447: Queue Practice 程式碼：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#define MAX 100000
+
+int queue[MAX];
+int front = 0;
+int tail = 0;
+
+void enqueue(int m){
+    if((tail + 1) % MAX == front){
+        printf("The queue is full!\n");
+    }
+    else{
+        queue[tail] = m;
+        tail = (tail + 1) % MAX;
+    }
+}
+
+void showFront(){
+    if(tail == front){
+        printf("-1\n");//The queue is empty
+    }
+    else{
+        printf("%d\n", queue[front]);
+    }
+}
+
+void delFront(){
+    if(front != tail){
+        front = (front + 1) % MAX;
+    }
+}
+
+int main(){
+    int n, i, op, m;
+    
+    scanf("%d", &n);
+    for(i = 0; i < n; i++){
+        scanf("%d", &op);
+        if(op == 1){
+            scanf("%d", &m);
+            enqueue(m);
+        }
+        else if(op == 2){
+            showFront();
+        }
+        else{
+            delFront();
+        }
+    }
+    
+    return 0;
+}
+</code></pre>
+</body>
+</html>
