@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>指標用於陣列操作的範例</title>
+</head>
+<body>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int arr[] = {10, 20, 30, 40, 50};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    
+    // 使用指標遍歷陣列並輸出元素
+    printf("陣列元素：");
+    for (int i = 0; i &lt; size; i++) {
+        printf("%d ", *(arr + i));
+    }
+    printf("\n");
+    
+    // 使用指標修改陣列元素
+    int *ptr = arr; // 將指標指向陣列的第一個元素
+    *(ptr + 2) = 75; // 修改第三個元素的值
+    
+    // 再次輸出修改後的陣列元素
+    printf("修改後的陣列元素：");
+    for (int i = 0; i &lt; size; i++) {
+        printf("%d ", *(arr + i));
+    }
+    printf("\n");
+    
+    return 0;
+}</code></pre>
+</body>
+</html>

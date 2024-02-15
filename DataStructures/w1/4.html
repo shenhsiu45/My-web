@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>指標用於函式參數傳遞的範例</title>
+</head>
+<body>
+<pre><code>#include &lt;stdio.h&gt;
+
+// 函式：通過指標修改變數的值
+void modifyValue(int *num) {
+    *num = *num * 2;
+}
+
+int main() {
+    int value = 5;
+    printf("原始值： %d\n", value);
+    // 傳遞變數的位址給函式
+    modifyValue(&value);
+    printf("修改後的值： %d\n", value);
+    return 0;
+}</code></pre>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Example</title>
+</head>
+<body>
+    <pre><code>#include &lt;stdio.h&gt;
+#define MAX 8
+
+int main(){
+    int s[MAX] = {10, 20, 30, 40, 50, 60, 70, 80};
+    int key;
+    int count = 0;
+    int L = 0;
+    int R = MAX-1;
+    int M;
+    scanf("%d", &key);
+    while(L&lt;=R){
+        M = (L+R)/2;
+        count++;
+        if(s[M]==key){
+            printf("%d in s[%d]\n", key, M);
+            break;
+        }
+        else if(key &gt; s[M]){
+            L = M+1;
+        }
+        else{
+            R = M-1;
+        }
+    }
+    if(L&gt;R){
+        printf("%d is not in array!\n", key);
+    }
+    printf("count:%d\n", count);
+    return 0;
+}</code></pre>
+</body>
+</html>
